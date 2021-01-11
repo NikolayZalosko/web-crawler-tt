@@ -16,11 +16,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
- * @author Nikolay Zalosko
- * This class collects links starting from predefined seed link 
- * Once the class is instantiated, the crawling begins,
- * and after it is done, you can obtain the link set via calling getLinks()
+ * This class collects links starting from predefined seed link Once the class
+ * is instantiated, the crawling begins, and after it is done, you can obtain
+ * the link set via calling getLinks()
  *
+ * @author Nikolay Zalosko
  */
 public class WebCrawler {
 
@@ -55,10 +55,12 @@ public class WebCrawler {
 		levels.get(0).add(seed);
 		this.links.add(seed);
 
-		/*
+		// @formatter:off
+		/* 
 		 * l is current depth level
 		 * j is current link count
-		 */
+		 */ 
+		// @formatter:on
 		for (int l = 0, j = 1; l < this.linkDepth && j < this.maxLinks; l++) {
 
 			// current depth level link set

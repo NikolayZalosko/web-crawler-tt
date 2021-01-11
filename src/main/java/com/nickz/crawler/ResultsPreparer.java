@@ -16,8 +16,8 @@ import com.nickz.crawler.model.PageResult;
  * This class finds occurrences of given terms in pages referred to by given links
  * Once the class is instantiated, the process begins,
  * and after it is done you can obtain results by calling getResults() method
- * @author Nikolay
- *
+ * 
+ * @author Nikolay Zalosko
  */
 public class ResultsPreparer {
 	private final Set<String> links;
@@ -75,5 +75,4 @@ public class ResultsPreparer {
 		}
 		return count;
 	}
-
 }

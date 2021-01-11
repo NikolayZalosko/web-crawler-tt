@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
@@ -15,6 +13,11 @@ import org.apache.commons.csv.CSVPrinter;
 
 import com.nickz.crawler.model.PageResult;
 
+/**
+ * Class responsible for printing output to files and console
+ * 
+ * @author Nikolay Zalosko
+ */
 public class OutputPrinter {
 
 	private final List<PageResult> pageResults;
