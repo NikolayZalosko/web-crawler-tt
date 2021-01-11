@@ -4,3 +4,4 @@ target/
 .settings/
 .dbeaver/
 *.txt
+*.csv

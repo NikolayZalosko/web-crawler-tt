@@ -21,10 +21,10 @@ import com.nickz.crawler.model.PageResult;
  */
 public class ResultsPreparer {
 	private final Set<String> links;
-	private final String[] terms;
+	private final List<String> terms;
 	private List<PageResult> results;
 
-	public ResultsPreparer(Set<String> links, String[] terms) {
+	public ResultsPreparer(Set<String> links, List<String> terms) {
 		this.links = links;
 		this.terms = terms;
 		

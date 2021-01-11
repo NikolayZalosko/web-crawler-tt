@@ -27,9 +27,6 @@ public class WebCrawler {
 	private final String seed;
 	private final int linkDepth;
 	private final int maxLinks;
-	
-	private static final int DEFAULT_LINK_DEPTH = 8;
-	private static final int DEFAULT_MAX_LINKS = 10000;
 
 	private Set<String> links;
 
@@ -41,10 +38,6 @@ public class WebCrawler {
 		links = new LinkedHashSet<>(maxLinks);
 		System.out.println("Collecting links...");
 		this.populateLinks();
-	}
-
-	public WebCrawler(String seed) {
-		this(seed, DEFAULT_LINK_DEPTH , DEFAULT_MAX_LINKS);
 	}
 
 	public Set<String> getLinks() {

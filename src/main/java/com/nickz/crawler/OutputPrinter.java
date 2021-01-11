@@ -18,9 +18,9 @@ import com.nickz.crawler.model.PageResult;
 public class OutputPrinter {
 
 	private final List<PageResult> pageResults;
-	private final String[] terms;
+	private final List<String> terms;
 
-	public OutputPrinter(List<PageResult> pageResults, String[] terms) {
+	public OutputPrinter(List<PageResult> pageResults, List<String> terms) {
 		this.pageResults = pageResults;
 		this.terms = terms;
 	}
@@ -28,9 +28,8 @@ public class OutputPrinter {
 	public void printResults() {
 		try {
 			// full stats to file
-			List<String> headersList = new ArrayList<>(Arrays.asList(terms));
-			headersList.add(0, "page_link");
-			String[] headers = headersList.toArray(new String[0]);
+			List<String> headers = new ArrayList<>(terms);
+			headers.add(0, "page_link");
 			System.out.println("Writing to files...");
 			this.printToCSVFile(this.pageResults, "full_stats.csv", headers);
 			
@@ -47,9 +46,9 @@ public class OutputPrinter {
 		}	
 	}
 
-	private void printToCSVFile(List<PageResult> pageResults, String fileName, String[] headers) throws IOException {
+	private void printToCSVFile(List<PageResult> pageResults, String fileName, List<String> headers) throws IOException {
 		FileWriter out = new FileWriter(fileName);
-		try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(headers))) {
+		try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader(headers.toArray(new String[0])))) {
 			for (PageResult pageResult : pageResults) {
 				List<String> record = new ArrayList<>();
 				record.add(pageResult.getLink());
