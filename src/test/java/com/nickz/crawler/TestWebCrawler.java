@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-public class WebCrawlerTest {
+public class TestWebCrawler {
 
 	@Test
 	void testInit() {

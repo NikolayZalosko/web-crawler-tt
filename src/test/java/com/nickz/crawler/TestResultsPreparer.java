@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.nickz.crawler.model.PageResult;
 
-public class ResultsPreparerTest {
+public class TestResultsPreparer {
 	@Test
 	void testInit() {
 		Set<String> links = new HashSet<>();
