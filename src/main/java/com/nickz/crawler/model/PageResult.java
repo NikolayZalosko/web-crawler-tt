@@ -8,8 +8,8 @@ import java.util.Map;
  * @author Nikolay Zalosko
  */
 public class PageResult implements Comparable<PageResult> {
-	private String link;
-	private Map<String, Integer> hitResults;
+	private final String link;
+	private final Map<String, Integer> hitResults;
 
 	public PageResult(String link, Map<String, Integer> hitResults) {
 		this.link = link;

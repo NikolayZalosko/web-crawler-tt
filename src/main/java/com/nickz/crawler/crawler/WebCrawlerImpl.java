@@ -1,4 +1,4 @@
-package com.nickz.crawler;
+package com.nickz.crawler.crawler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,15 +22,15 @@ import org.jsoup.select.Elements;
  *
  * @author Nikolay Zalosko
  */
-public class WebCrawler {
+public class WebCrawlerImpl implements WebCrawler {
 
 	private final String seed;
 	private final int linkDepth;
 	private final int maxLinks;
 
-	private Set<String> links;
+	private final Set<String> links;
 
-	public WebCrawler(String seed, int linkDepth, int maxLinks) {
+	public WebCrawlerImpl(String seed, int linkDepth, int maxLinks) {
 		this.seed = seed;
 		this.linkDepth = linkDepth;
 		this.maxLinks = maxLinks;
@@ -48,7 +48,7 @@ public class WebCrawler {
 		UrlValidator validator = new UrlValidator();
 		List<Set<String>> levels = new ArrayList<>();
 		for (int i = 0; i <= this.linkDepth; i++) {
-			levels.add(new HashSet<String>());
+			levels.add(new HashSet<>());
 		}
 
 		// only 1 link on level 0 (root level)
@@ -82,12 +82,12 @@ public class WebCrawler {
 					if (j > this.maxLinks) {
 						break;
 					}
-					String linkToAddToNexlLevel = iterator2.next();
-					if (links.contains(linkToAddToNexlLevel) || !validator.isValid(linkToAddToNexlLevel)) {
+					String linkToAddToNextLevel = iterator2.next();
+					if (links.contains(linkToAddToNextLevel) || !validator.isValid(linkToAddToNextLevel)) {
 						continue;
 					}
-					to.add(linkToAddToNexlLevel);
-					links.add(linkToAddToNexlLevel);
+					to.add(linkToAddToNextLevel);
+					links.add(linkToAddToNextLevel);
 					j++;
 				}
 			}
@@ -95,11 +95,9 @@ public class WebCrawler {
 	}
 
 	private Set<String> getPageLinksSet(String url) {
-		Document doc = null;
+		Document doc;
 		try {
-			doc = Jsoup.connect(url).timeout(3000).get();
-		} catch (UnsupportedMimeTypeException e) {
-			return null;
+			doc = Jsoup.connect(url).timeout(3000).followRedirects(true).get();
 		} catch (IOException e) {
 			return null;
 		}

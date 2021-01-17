@@ -6,6 +6,12 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
+import com.nickz.crawler.crawler.WebCrawler;
+import com.nickz.crawler.crawler.WebCrawlerImpl;
+import com.nickz.crawler.preparer.ResultsPreparer;
+import com.nickz.crawler.printer.OutputPrinter;
+import com.nickz.crawler.printer.OutputPrinterImpl;
+import com.nickz.crawler.preparer.ResultsPreparerImpl;
 import org.apache.commons.validator.routines.UrlValidator;
 
 /**
@@ -25,20 +31,20 @@ public class App {
 	static Integer maxLinks = null;
 
 	public static void main(String[] args) {
+		System.out.println("\n----------------------WEB CRAWLER----------------------");
 		readInputFromConsole();
 
-		WebCrawler crawler = new WebCrawler(seed, linkDepth, maxLinks);
-		ResultsPreparer preparer = new ResultsPreparer(crawler.getLinks(), terms);
-		OutputPrinter outputPrinter = new OutputPrinter(preparer.getResults(), terms);
+		WebCrawler crawler = new WebCrawlerImpl(seed, linkDepth, maxLinks);
+		ResultsPreparer preparer = new ResultsPreparerImpl(crawler.getLinks(), terms);
+		OutputPrinter printer = new OutputPrinterImpl(preparer.getResults(), terms);
 
-		outputPrinter.printResults();
+		printer.printResults();
 	}
 
 	static void readInputFromConsole() {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
 			// seed
 			while (seed == null) {
-				System.out.println("\n----------------------WEB CRAWLER----------------------");
 				System.out.println("Enter URL to start from (so-called seed): ");
 				UrlValidator validator = new UrlValidator();
 				String inputSeed = reader.readLine();
@@ -86,8 +92,7 @@ public class App {
 				}
 			}
 		} catch (IOException e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			System.out.println("Error occurred: " + e.getMessage());
 		}
 	}
 }

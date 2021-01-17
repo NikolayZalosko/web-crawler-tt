@@ -1,4 +1,4 @@
-package com.nickz.crawler;
+package com.nickz.crawler.printer;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,12 +18,12 @@ import com.nickz.crawler.model.PageResult;
  * 
  * @author Nikolay Zalosko
  */
-public class OutputPrinter {
+public class OutputPrinterImpl implements OutputPrinter {
 
 	private final List<PageResult> pageResults;
 	private final List<String> terms;
 
-	public OutputPrinter(List<PageResult> pageResults, List<String> terms) {
+	public OutputPrinterImpl(List<PageResult> pageResults, List<String> terms) {
 		this.pageResults = pageResults;
 		this.terms = terms;
 	}
@@ -44,8 +44,7 @@ public class OutputPrinter {
 			System.out.println("\n----------------------TOP 10 PAGES BY TOTAL HITS----------------------");
 			this.printToConsole(topResults);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Failed to print results: " + e.getMessage());
 		}	
 	}
 

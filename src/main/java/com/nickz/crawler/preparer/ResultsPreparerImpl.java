@@ -1,6 +1,5 @@
-package com.nickz.crawler;
+package com.nickz.crawler.preparer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,30 +18,30 @@ import com.nickz.crawler.model.PageResult;
  * 
  * @author Nikolay Zalosko
  */
-public class ResultsPreparer {
+public class ResultsPreparerImpl implements ResultsPreparer {
 	private final Set<String> links;
 	private final List<String> terms;
 	private List<PageResult> results;
 
-	public ResultsPreparer(Set<String> links, List<String> terms) {
+	public ResultsPreparerImpl(Set<String> links, List<String> terms) {
 		this.links = links;
 		this.terms = terms;
 		
 		System.out.println("Parsing pages...");
-		this.prepaResults();
+		this.prepareResults();
 	}
 
 	public List<PageResult> getResults() {
 		return this.results;
 	}
 	
-	private void prepaResults() {
+	private void prepareResults() {
 		List<PageResult> results = new ArrayList<>();
 		for (String link : this.links) {
 			String text = this.parsePage(link);
 			Map<String, Integer> hitResults = new LinkedHashMap<>();
 			for (String term : this.terms) {
-				Integer hits = this.findOccurences(text, term);
+				Integer hits = this.findOccurrences(text, term);
 				hitResults.put(term, hits);
 			}
 			PageResult pageResult = new PageResult(link, hitResults);
@@ -52,16 +51,19 @@ public class ResultsPreparer {
 	}
 	
 	private String parsePage(String url) {
-		Document doc = null;
+		Document doc;
 		try {
-			doc = Jsoup.connect(url).timeout(5000).get();
-		} catch (IOException e) {
+			doc = Jsoup.connect(url).timeout(5000).ignoreHttpErrors(true).get();
+		} catch (Exception e) {
+			return "";
+		}
+		if (doc.body() == null) {
 			return "";
 		}
 		return doc.body().text();
 	}
 	
-	private int findOccurences(String text, String term) {
+	private int findOccurrences(String text, String term) {
 		int lastIndex = 0;
 		int count = 0;
 		String textLowCase = text.toLowerCase();
