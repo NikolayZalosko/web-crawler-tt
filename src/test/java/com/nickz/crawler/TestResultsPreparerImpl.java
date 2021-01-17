@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.nickz.crawler.preparer.ResultsPreparer;
 import com.nickz.crawler.preparer.ResultsPreparerImpl;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ public class TestResultsPreparerImpl {
 		List<String> terms = new ArrayList<>();
 		terms.add("examples");
 
-		ResultsPreparerImpl preparer = new ResultsPreparerImpl(links, terms);
+		ResultsPreparer preparer = new ResultsPreparerImpl(links, terms);
 		List<PageResult> results = preparer.getResults();
 
 		assertNotNull(results);
